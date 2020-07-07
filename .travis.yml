@@ -14,21 +14,10 @@ jobs:
       - stage: build
         if: type != pull_request
         script:
-          # see comment in `bootstrap_fun` for details on the procedure
-          # env available in each stage
-          #  - by travis config (see below): secret env vars
-          #  - by `common` script: WORKSPACE, IVY2_DIR, SBT_CMD, integrationRepoUrl
-          #  - by `bootstrap_fun`: publishPrivateTask, ...
           - set -e
-          - (cd admin && ./init.sh)
-          - source scripts/common
-          - source scripts/bootstrap_fun
-          - determineScalaVersion
-          - removeExistingBuilds $integrationRepoUrl
-          - if [ ! -z "$STARR_REF" ]; then buildStarr; fi
-          - buildLocker
-          - buildQuick
-          - triggerScalaDist
+          - sbt -warn setupPublishCore generateBuildCharacterPropertiesFile publishLocal
+          - STARR=`cat buildcharacter.properties | grep ^maven.version.number | cut -d= -f2` && echo $STARR
+          - sbt -Dstarr.version=$STARR -warn setupValidateTest test:compile info testAll
           - sbt -Dscala.build.compileWithDotty=true library/compile
 
       # pull request validation (w/ mini-bootstrap)
