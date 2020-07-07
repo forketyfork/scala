@@ -33,7 +33,9 @@ object Dotc {
         "-deprecation",
         "-Yerased-terms",
         "-Xfatal-warnings",
-        "-usejavacp"
+        "-usejavacp",
+        "-verbose",
+        "-Ylog-classpath"
       ) ++ sources
       dotcProcess(args)
     }
@@ -43,12 +45,8 @@ object Dotc {
   val describe: String = s"$commandName <out: Directory> <src: File>"
 
   def process(args: String*): Int = {
-    if (args.length != 2) {
-      println(red(s"please provide two arguments in sub-command: $describe"))
-      return 1
-    }
-    val Seq(out, src) = args
-    val success = dotc(out, out, src).get
+    val out :: srcs = args.toList
+    val success = dotc(out, out, srcs: _*).get
     if (success) 0 else 1
   }
 
