@@ -285,7 +285,7 @@ trait IterableOps[+A, +CC[_], +C] extends Any with IterableOnce[A] with Iterable
 
   /** Returns a value class containing operations for comparing the size of this $coll to a test value.
     *
-    * These operations are implemented in terms of [[sizeCompare(Int) `sizeCompare(Int)`]], and
+    * These operations are implemented in terms of [[sizeCompare(otherSize:Int)* `sizeCompare(Int)`]], and
     * allow the following more readable usages:
     *
     * {{{
@@ -847,7 +847,7 @@ object IterableOps {
   /** Operations for comparing the size of a collection to a test value.
     *
     * These operations are implemented in terms of
-    * [[scala.collection.IterableOps.sizeCompare(Int) `sizeCompare(Int)`]].
+    * [[scala.collection.IterableOps.sizeCompare(otherSize:Int)* `sizeCompare(Int)`]].
     */
   final class SizeCompareOps private[collection](val it: IterableOps[_, AnyConstr, _]) extends AnyVal {
     /** Tests if the size of the collection is less than some value. */

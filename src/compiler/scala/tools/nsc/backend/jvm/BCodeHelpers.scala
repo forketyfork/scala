@@ -477,7 +477,8 @@ abstract class BCodeHelpers extends BCodeIdiomatic {
      * For Scala annotations this is OK: they are stored in the pickle and ignored by the backend.
      * Java annotations on the other hand are additionally emitted to the classfile in Java's format.
      *
-     * This means that [[Type]] instances within an AnnotationInfo reach the backend non-erased. Examples:
+     * This means that [[scala.reflect.internal.Types.Type `Type`]] instances within an AnnotationInfo
+     * reach the backend non-erased. Examples:
      *   - @(javax.annotation.Resource @annotation.meta.getter) val x = 0
      *     Here, annotationInfo.atp is an AnnotatedType.
      *   - @SomeAnnotation[T] val x = 0

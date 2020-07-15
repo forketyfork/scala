@@ -803,7 +803,7 @@ trait SeqOps[+A, +CC[_], +C] extends Any
 
   /** Returns a value class containing operations for comparing the length of this $coll to a test value.
     *
-    * These operations are implemented in terms of [[lengthCompare(Int) `lengthCompare(Int)`]], and
+    * These operations are implemented in terms of [[lengthCompare(len:Int)* `lengthCompare(Int)`]], and
     * allow the following more readable usages:
     *
     * {{{
